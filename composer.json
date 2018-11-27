@@ -1,0 +1,21 @@
+{
+    "name": "ykwang110521/predis",
+    "description": "A simple redis operation class package.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ykwang110521",
+            "email": "ykwang090810@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": { 
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ykwang\\": "src/"
+        }
+    }
+
+}
