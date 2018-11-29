@@ -27,7 +27,7 @@ class Predis
     public function __construct($config = [])
     {
         try {
-            $this->redis = new Redis();
+            $this->redis = new \Redis();
             $this->host = $config['host'] ? $config['host'] : '127.0.0.1';
             $this->port = $config['port'] ? $config['port'] : 6379;
             $this->connected = $this->redis->pconnect($this->host, $this->port, $this->timeout);
