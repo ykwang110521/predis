@@ -27,7 +27,7 @@ class Predis
     public function __construct($config = [])
     {
         try {
-            $this->redis = new \Redis();
+            $this->redis = new Redis();
             $this->host = $config['host'] ? $config['host'] : '127.0.0.1';
             $this->port = $config['port'] ? $config['port'] : 6379;
             $this->connected = $this->redis->pconnect($this->host, $this->port, $this->timeout);
@@ -59,6 +59,15 @@ class Predis
     public function close()
     {
         return $this->redis->close();
+    }
+
+    /**
+     * 获取redis实例，用来执行一些未封装的命令
+     * @return Redis
+     */
+    public function getRedis()
+    {
+        return $this->redis;
     }
 
     /**
@@ -224,13 +233,13 @@ class Predis
     }
 
     /**
-     * 删除哈希表 key 中的一个或多个指定域，不存在的域将被忽略
+     * 删除哈希表 key 中的指定域，不存在的域将被忽略
      * @param $key
      * @param $field
      */
-    public function hDel($key, ...$field)
+    public function hDel($key, $field)
     {
-        $this->redis->hDel($this->prefix.$key, ...$field);
+        $this->redis->hDel($this->prefix.$key, $field);
     }
 
     /**
