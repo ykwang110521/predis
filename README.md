@@ -7,7 +7,7 @@ composer require ykwang110521/predis
 
 
 ### demo
-···php
+```php
 require 'vendor/autoload.php';
 
 use Ykwang\Predis;
@@ -20,4 +20,4 @@ $rand = rand(1,99);
 $redis->set('key'.$rand, 'value'.$rand.'--23432423423');
 $res = $redis->get('key'.$rand);
 var_dump($res);die;
-···
+```
