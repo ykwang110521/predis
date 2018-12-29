@@ -24,6 +24,11 @@ class Predis
     // 超时时间
     private $timeout = 3;
 
+    // 实例可用
+    public $enable;
+
+    private $isAuth = true;
+
     public function __construct($config = [])
     {
         try {
@@ -31,17 +36,16 @@ class Predis
             $this->host = $config['host'] ? $config['host'] : '127.0.0.1';
             $this->port = $config['port'] ? $config['port'] : 6379;
             $this->connected = $this->redis->pconnect($this->host, $this->port, $this->timeout);
+            if (isset($config['prefix'])) $this->prefix = $config['prefix'];
+            if (isset($config['auth']) && $config['auth']) {
+            	$this->auth = $config['auth'];
+            	$this->isAuth = $this->redis->auth($this->auth);
+            }
+	    $this->enable = $this->connected && $this->isAuth ? true : false;
         } catch (RedisException $e) {
-            print($e->getMessage());
-            exit;
+	    $this->enable = false;
         }
 
-        if (isset($config['prefix'])) $this->prefix = $config['prefix'];
-
-        if (isset($config['auth']) && $config['auth']) {
-            $this->auth = $config['auth'];
-            $this->redis->auth($this->auth);
-        }
     }
 
     /**
